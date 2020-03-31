@@ -1,9 +1,36 @@
 type Query {
+  "Lista de las temporadas de Formula 1 . de 1950 a 2019"
   SeasonsList: [Season!]!
+  """
+  Carreras por Year
+  """
   racesByYear(year: String!): [Race!]!
+  """
+  Carreras por Year and Round
+  """
   raceSelect(year: String!, round: Int!): Race
-  historyDrivers(pageElements: Int, page: Int):[Driver!]!
-  driverYear(year: String!): [Driver!]!
+  """
+  Historia de los Drivers por pageElementes y page
+  """
+  historyDrivers(pageElements: Int, page: Int): [Driver!]!
+  """
+  Driver por Year
+  """
+  driversYear(year: String!): [Driver!]!
+  """
+  Driver por Year and Round
+  """
+  driversYearAndRound(year: String!, round: Int!): [Driver!]!
+  """
+  Driver select by ID 
+  """
+  driversSelect(id: String!): Driver
+  """
+  los resultados de los pilotos año por año, donde obtenemos la clasificación general final excepto en el año actual
+  """
+  seasonPilotsRanking(year: String!): [DriverStanding!]!
+
+
 }
 
 type Mutation {
@@ -19,7 +46,7 @@ type Race {
   season: String!
   round: String!
   url: String!
-  urlMobile:String!
+  urlMobile: String!
   name: String!
   circuit: Circuit!
   date: String!
@@ -29,7 +56,7 @@ type Race {
 type Circuit {
   id: String!
   url: String!
-  urlMobile:String!
+  urlMobile: String!
   name: String!
   location: Location!
 }
@@ -43,9 +70,28 @@ type Location {
 type Driver {
   id: String!
   url: String!
-  urlMobile:String!
+  urlMobile: String!
   name: String!
   dateOfBirth: String!
   nationality: String!
   code: String
 }
+
+type DriverStanding {
+  position: String!
+  positionText: String!
+  points: String!
+  wins: String!
+  driver: Driver!
+  constructors: [Constructor]!
+}
+
+type Constructor {
+  id: String!
+  url: String!
+  urlMobile: String!
+  name: String!
+  nationality: String!
+}
+
+

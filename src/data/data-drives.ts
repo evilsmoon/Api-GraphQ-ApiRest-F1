@@ -1,5 +1,5 @@
 import { F1 } from "./data-source";
-import { cheackYear } from '../lib/utils';
+import { cheackYear, roundCheack } from '../lib/utils';
 
 export class DriversData extends F1 {
   constructor() {
@@ -20,9 +20,23 @@ export class DriversData extends F1 {
   }
   async getDriversYear(year: string ) {
     year = cheackYear(year);
-    return await this.get(`drivers/${year}.json?`, {
+    return await this.get(`${year}/drivers.json`, {
       cacheOptions: { ttl: 60 }
     });
   }
+  async getDriversYearAndRound(year: string, round: number) {
+    year = cheackYear(year);
+    round = roundCheack(round);
+    return await this.get(`${year}/${round}/drivers.json`, {
+      cacheOptions: { ttl: 60 }
+    });
+  }
+  async getDriversID(id: string) {
+    return await this.get(`drivers/${id}.json`, {
+      cacheOptions: { ttl: 60 }
+    });
+  }
+
+  
 
 }
