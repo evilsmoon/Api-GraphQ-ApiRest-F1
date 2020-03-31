@@ -14,3 +14,10 @@ export function roundCheack(round: number) {
   }
   return round;
 }
+
+export function paginationOptions(pageElements: number , page: number){
+  const offset = (page - 1) * pageElements;
+  const limit = pageElements;
+  const filter = `limit=${limit}&offset=${offset}`;
+  return filter;
+}

@@ -2,6 +2,7 @@ import { IResolvers } from "graphql-tools";
 // import { LIST } from "./resolversMap";
 import { dataSources } from "../data/index";
 import { DriversData } from "../data/data-drives";
+import { CircuitsData } from '../data/data-circuits';
 
 const query: IResolvers = {
   Query: {
@@ -44,7 +45,18 @@ const query: IResolvers = {
       return await dataSources.standings
         .getSeasonPilotsRanking(year)
         .then((data: any) => data.MRData.StandingsTable.StandingsLists[0].DriverStandings);
+    },
+    async historyCircuits(_: void, {  pageElements, page}, { dataSources }) {
+      return await dataSources.circuits
+        .getCircuits(pageElements, page)
+        .then((data: any) => data.MRData.CircuitTable.Circuits);
+    },
+    async circuitSelect(_: void, { id }, { dataSources }) {
+      return await dataSources.circuits
+        .getCircuitsID(id )
+        .then((data: any) => data.MRData.CircuitTable.Circuits[0]);
     }
+    
   }
 };
 

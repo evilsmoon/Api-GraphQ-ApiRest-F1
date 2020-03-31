@@ -29,13 +29,20 @@ type Query {
   los resultados de los pilotos año por año, donde obtenemos la clasificación general final excepto en el año actual
   """
   seasonPilotsRanking(year: String!): [DriverStanding!]!
-
-
+  """
+   Circuitos Historicos
+  """
+  historyCircuits(pageElements: Int, page: Int): [Circuit!]!
+  """
+   Circuitos Selecionado
+  """
+  circuitSelect(id: String!): Circuit
 }
 
 type Mutation {
   add(value: String!): [String]
 }
+  
 type Season {
   year: String!
   url: String!
